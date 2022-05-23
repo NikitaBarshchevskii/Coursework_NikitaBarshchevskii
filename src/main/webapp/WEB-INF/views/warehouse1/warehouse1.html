@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Warehouse</title>
+</head>
+<body>
+
+<main>
+    <h1>Warehouse1</h1>
+    <div th:switch="${warehouses1}">
+        <h2 th:case="null">No warehouse1?(</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Good Count</th>
+                    <th>Good Id</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="warehouse1 : ${warehouses1}">
+                    <td th:text="${warehouse1.getId()}"></td>
+                    <td th:text="${warehouse1.getGoodCount()}"></td>
+                    <td th:text="${warehouse1.getGoodId()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<button>
+    <a href="/"><p> Back to start page </p></a>
+</button>
+</body>
+</html>

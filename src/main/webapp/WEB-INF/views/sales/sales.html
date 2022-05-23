@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sales</title>
+</head>
+<body>
+
+<main>
+    <h1>Sales</h1>
+    <div th:switch="${sales}">
+        <h2 th:case="null">No sales?(</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Create Date</th>
+                    <th>Good Count</th>
+                    <th>Good Id</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sale : ${sales}">
+                    <td th:text="${sale.getId()}"></td>
+                    <td th:text="${sale.getCreateDate()}"></td>
+                    <td th:text="${sale.getGoodCount()}"></td>
+                    <td th:text="${sale.getGoodId()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<button>
+    <a href="/"><p> Back to start page </p></a>
+</button>
+</body>
+</html>
