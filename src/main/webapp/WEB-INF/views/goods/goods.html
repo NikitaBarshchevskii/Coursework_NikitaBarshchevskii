@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="good : ${goods}">
-                        <td th:text="${good.getId()}"></td>
+                        <td> <a th:href="@{/goods/{id}(id=${good.getId()})}" th:text="${good.getId()}"></a></td>
                         <td th:text="${good.getName()}"></td>
                         <td th:text="${good.getPriority()}"></td>
                     </tr>
@@ -31,6 +31,9 @@
         </div>
     </div>
 </main>
+<button>
+    <a href="/goods/new"><p> Add new good </p></a>
+</button>
 <button>
     <a href="/"><p> Back to start page </p></a>
 </button>

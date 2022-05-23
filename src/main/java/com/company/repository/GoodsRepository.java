@@ -13,9 +13,6 @@ import java.util.Optional;
 
 public interface GoodsRepository extends CrudRepository<Goods, Long> {
 
-    @Transactional
-    @Modifying
-    void deleteGoodsById(Long id);
-
+    Goods findGoodsById(Long id);
 
 }

@@ -8,7 +8,6 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity(name = "WAREHOUSE2")
-@Table(name = "warehouse2")
 public class Warehouse2 {
 
     @Id

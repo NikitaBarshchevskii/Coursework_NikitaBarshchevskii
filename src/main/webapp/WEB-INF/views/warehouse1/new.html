@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>New department</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/warehouse1}" th:object="${warehouse1}">
+    <fieldset>
+        <input type="text" th:field="*{goodId}" placeholder="good ID"/>
+        <input type="text" th:field="*{goodCount}" placeholder="good count"/>
+        <!--
+                <p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+        -->
+
+        <input type="submit" value="Add!"/>
+    </fieldset>
+</form>
+</body>
+</html>
