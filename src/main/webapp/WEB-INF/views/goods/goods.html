@@ -8,32 +8,59 @@
 <body>
 
 <main>
-    <h1>Goods</h1>
+    <p style="text-align:center">
+        <button>
+            <a href="/goods"><p> Goods </p></a>
+    </button>
+    <button>
+        <a href="/sales"><p> Sales </p></a>
+    </button>
+    <button>
+        <a href="/warehouse1"><p> Warehouse1 </p></a>
+    </button>
+    <button>
+        <a href="/warehouse2"><p> Warehouse2 </p></a>
+    </button>
+    </p>
+    <h1 style="background: lightblue">Goods</h1>
     <div th:switch="${goods}">
         <h2 th:case="null">No goods?(</h2>
         <div th:case="*">
+            <div th:switch="${#httpServletRequest.remoteUser}">
+                <a href="goods/new">
+                    <input th:case="admin" type="button" value="Add new good" />
+                </a>
+            </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Priority</th>
+                        <th>| Id |</th>
+                        <th> Name |</th>
+                        <th> Priority |</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="good : ${goods}">
-                        <td> <a th:href="@{/goods/{id}(id=${good.getId()})}" th:text="${good.getId()}"></a></td>
-                        <td th:text="${good.getName()}"></td>
-                        <td th:text="${good.getPriority()}"></td>
+                        <td style="text-align:center"> <a th:href="@{/goods/{id}(id=${good.getId()})}" th:text="${good.getId()}"></a></td>
+                        <td style="text-align:center" th:text="${good.getName()}"></td>
+                        <td style="text-align:center" th:text="${good.getPriority()}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </main>
-<button>
-    <a href="/goods/new"><p> Add new good </p></a>
-</button>
+<hr/>
+<a th:text="'Distinct types of goods in warehouse1: ' + ${good_in_warehouse1.size()}"> </a>
+<br>
+<a th:text="'Distinct types of goods warehouse2: ' + ${good_in_warehouse2.size()}"> </a>
+<br>
+<a th:text="'Distinct types of goods in both warehouses: ' + ${good_in_warehouses.size()}"> </a>
+<br>
+<a th:text="'Distinct types of goods for sale: ' + ${good_in_sales.size()}"> </a>
+<br>
+<a th:text="'Distinct types of goods everywhere: ' + ${good_everywhere.size()}"> </a>
+<hr/>
 <button>
     <a href="/"><p> Back to start page </p></a>
 </button>

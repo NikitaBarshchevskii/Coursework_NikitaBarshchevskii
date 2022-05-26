@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Warehouse</title>
+</head>
+<body>
+
+<main>
+    <p style="text-align:center">
+        <button>
+            <a href="/goods"><p> Goods </p></a>
+    </button>
+    <button>
+        <a href="/sales"><p> Sales </p></a>
+    </button>
+    <button>
+        <a href="/warehouse1"><p> Warehouse1 </p></a>
+    </button>
+    <button>
+        <a href="/warehouse2"><p> Warehouse2 </p></a>
+    </button>
+    </p>
+    <h1 style="background: lightblue">Warehouse2</h1>
+    <div th:switch="${warehouses2}">
+        <h2 th:case="null">No warehouse2?(</h2>
+        <div th:case="*">
+            <div th:switch="${#httpServletRequest.remoteUser}">
+                <a href="warehouse2/new">
+                    <input th:case="admin" type="button" value="Add new good to warehouse2" />
+                </a>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>| Id |</th>
+                    <th> Good Count |</th>
+                    <th> Good Id |</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="warehouse2 : ${warehouses2}">
+                    <td style="text-align:center"> <a th:href="@{/warehouse2/{id}(id=${warehouse2.getId()})}" th:text="${warehouse2.getId()}"></a></td>
+                    <td style="text-align:center" th:text="${warehouse2.getGoodCount()}"></td>
+                    <td style="text-align:center" th:text="${warehouse2.getGoodId().getId()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<hr/>
+<button>
+    <a href="/"><p> Back to start page </p></a>
+</button>
+</body>
+</html>

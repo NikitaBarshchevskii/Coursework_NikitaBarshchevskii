@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Goods {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,10 +26,10 @@ public class Goods {
             name = "PRIORITY",
             nullable = false
     )
-    private Double priority;
+    private double priority;
 
     public Goods(String name,
-                 Double priority) {
+                 double priority) {
         this.name = name;
         this.priority = priority;
     }
@@ -50,11 +50,11 @@ public class Goods {
         this.name = name;
     }
 
-    public Double getPriority() {
+    public double getPriority() {
         return priority;
     }
 
-    public void setPriority(Double priority) {
+    public void setPriority(double priority) {
         this.priority = priority;
     }
 }

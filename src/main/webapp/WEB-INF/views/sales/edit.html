@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit sale</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/sales/{id}/edit(id=${sale.getId()})}"
+      th:object="${sale}">
+
+    <label for="goodCount">New good count: </label>
+    <input type="text" name="goodCount"  id="goodCount"/>
+    <br>
+    <input type="submit" value="Edit!"/>
+</form>
+</body>
+</html>

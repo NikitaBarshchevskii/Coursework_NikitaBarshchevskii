@@ -1,12 +1,33 @@
 </head>
 <body>
-<h1 style="background: lightgrey">Info</h1>
+<h1 style="background: lightgrey">Good page</h1>
 
 <br>
 <a th:text="'Good: ' + ${good.getName()}"> </a>
-<!--<br/>
-<a th:text="'Warehouse1: ' + ${warehouse1.getGoodCount()} "> </a>
-<br/>-->
+<a th:text="'Priority: ' + ${good.getPriority()}"> </a>
+
+
+<br/>
+<br/>
+<div th:switch="${#httpServletRequest.remoteUser}">
+    <a th:href="@{/goods/{id}/edit(id=${good.getId()})}">
+        <input th:case="admin" type="button" value="Edit good" />
+    </a>
+</div>
+
+<br/>
+<div th:switch="${#httpServletRequest.remoteUser}">
+    <td th:case="admin" width="50">
+        <form th:method="POST" th:action="@{/goods/{id}/delete(id=${good.getId()})}">
+            <input type="submit" value="Delete good"/>
+        </form>
+    </td>
+</div>
+
+<div th:switch="${error_Message}">
+    <a style="color:red" th:case="*" th:text="${error_Message}"></a>
+</div>
+<br>
 
 <!--<br/>
 <form th:method="POST" th:action="@{/works/{id}(id=${work.getId()})}">
@@ -17,6 +38,8 @@
     <input type="button" value="Edit work">
 </a>-->
 <hr/>
-
+<button>
+    <a href="/goods"><p> Back to goods </p></a>
+</button>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import java.util.List;
 
 @Controller
@@ -21,6 +22,16 @@ public class GoodsController {
     private Warehouse1Repository warehouse1Repository;
     private Warehouse2Repository warehouse2Repository;
 
+    private static String errorMessage;
+    private static int goodsInW1;
+    private static int goodsInW2;
+    private static int goodsInWs;
+    private static int goodsIns;
+
+
+    public GoodsController(GoodsRepository goodsRepository) {
+        this.goodsRepository = goodsRepository;
+    }
     @Autowired
     public void setGoodsRepository(GoodsRepository goodsRepository) {
         this.goodsRepository = goodsRepository;
@@ -42,6 +53,11 @@ public class GoodsController {
     public String printGoods(Model model) {
         List<Goods> goods = (List<Goods>) goodsRepository.findAll();
         model.addAttribute("goods", goods.isEmpty() ? null : goods);
+        model.addAttribute("good_in_warehouse1", goodsRepository.findGoodsInWarehouse1());
+        model.addAttribute("good_in_warehouse2", goodsRepository.findGoodsInWarehouse2());
+        model.addAttribute("good_in_warehouses", goodsRepository.findGoodsInWarehouses());
+        model.addAttribute("good_in_sales", goodsRepository.findGoodsInSales());
+        model.addAttribute("good_everywhere", goodsRepository.findGoodsEverywhere());
         return "goods/goods";
     }
 
@@ -69,10 +85,46 @@ public class GoodsController {
     public String index(@PathVariable("id") Long id,
                         Model model){
         model.addAttribute("good", goodsRepository.findGoodsById(id));
+        model.addAttribute("error_Message", errorMessage);
+        errorMessage = " ";
 /*
         model.addAttribute("warehouse1", warehouse1Repository.findWarehouse1sByGoodId(id));
 */
+
+
+
         return "goods/id";
     }
+    @GetMapping("{id}/edit")
+    public String edit(@PathVariable("id") Long id,
+                       Model model) {
+        model.addAttribute("good", goodsRepository.findGoodsById(id));
+        return "goods/edit";
+    }
 
+    @PostMapping("{id}/edit")
+    public String update(@ModelAttribute("priority") String priority,
+                         @PathVariable("id") Long id) {
+        double temp = Double.parseDouble(priority);
+        Goods good = goodsRepository.findGoodsById(id);
+        good.setPriority(temp);
+        goodsRepository.save(good);
+        return "redirect:/goods";
+    }
+    @PostMapping( "{id}/delete")
+    public String delete(@PathVariable("id") Long id,
+                         Model model){
+        int sum = 0;
+        Goods goods = goodsRepository.findGoodsById(id);
+        sum+=salesRepository.findSalesByGoodId(goods).size();
+        sum+=warehouse1Repository.findWarehouse1sByGoodId(goods).size();
+        sum+=warehouse2Repository.findWarehouse2sByGoodId(goods).size();
+        if(sum == 0){
+            goodsRepository.delete(goods);
+        } else {
+            errorMessage = "Good is used elsewhere";
+            return "redirect:/goods/{id}";
+        }
+        return "redirect:/goods";
+    }
 }

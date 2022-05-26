@@ -6,7 +6,18 @@
     <title>Start Page</title>
 </head>
 <body>
-<p style="text-align:center"><big>Distributor Database</big></p>
+<h1 style="background: lightblue"> <p style="text-align:center"><big>Distributor Database</big></p></h1>
+<div th:switch="${#httpServletRequest.remoteUser}">
+    <a th:href="@{/login}">
+        <input th:case="null" type="button" value="Log in"/>
+    </a>
+</div>
+
+<div th:switch="${#httpServletRequest.remoteUser}">
+    <form th:action="@{/logout}" method="post">
+        <input th:case="admin" type="submit" value="Sign Out"/>
+    </form>
+</div>
 <p style="text-align:center">
 <button>
 <a href="/goods"><p> Goods </p></a>
@@ -21,5 +32,6 @@
 <a href="/warehouse2"><p> Warehouse2 </p></a>
 </button>
 </p>
+
 </body>
 </html>

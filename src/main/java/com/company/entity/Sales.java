@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class Sales {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)
     private Long id;
 
@@ -31,15 +31,15 @@ public class Sales {
     @Column(
             name = "GOOD_COUNT"
     )
-    private Long goodCount;
+    private long goodCount;
     @Column(
             name = "CREATE_DATE",
             nullable = false,
             updatable = false
     )
-    private Timestamp createDate;
+    private String createDate;
 
-    public Sales(Goods goodId, Long goodCount, Timestamp createDate) {
+    public Sales(Goods goodId, long goodCount, String createDate) {
         this.goodId = goodId;
         this.goodCount = goodCount;
         this.createDate = createDate;
@@ -61,19 +61,19 @@ public class Sales {
         this.goodId = goodId;
     }
 
-    public Long getGoodCount() {
+    public long getGoodCount() {
         return goodCount;
     }
 
-    public void setGoodCount(Long goodCount) {
+    public void setGoodCount(long goodCount) {
         this.goodCount = goodCount;
     }
 
-    public Timestamp getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 }

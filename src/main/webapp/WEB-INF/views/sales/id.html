@@ -1,0 +1,41 @@
+</head>
+<body>
+<h1 style="background: lightgrey">Good from sales page</h1>
+
+<br>
+<a th:text="'Date: ' + ${sales.getCreateDate()}"> </a>
+<br>
+<a th:text="'Good count: ' + ${sales.getGoodCount()}"> </a>
+<br>
+<a th:text="'Name of good: ' + ${sales.getGoodId().getName()}"> </a>
+
+<div th:switch="${#httpServletRequest.remoteUser}">
+<a th:href="@{/sales/{id}/edit(id=${sales.getId()})}">
+    <input th:case="admin" type="button" value="Edit sale" />
+</a>
+</div>
+
+<br/>
+<div th:switch="${#httpServletRequest.remoteUser}">
+    <td th:case="admin" width="50">
+        <form th:method="POST" th:action="@{/sales/{id}/delete(id=${sales.getId()})}">
+            <input type="submit" value="Delete sale"/>
+        </form>
+    </td>
+</div>
+
+
+<!--<br/>
+<form th:method="POST" th:action="@{/works/{id}(id=${work.getId()})}">
+    <input type="submit" value="Delete work"/>
+</form>
+<br>
+<a th:href="@{/works/{id}/edit(id=${work.getId()})}">
+    <input type="button" value="Edit work">
+</a>-->
+<hr/>
+<button>
+    <a href="/sales"><p> Back to sales </p></a>
+</button>
+</body>
+</html>

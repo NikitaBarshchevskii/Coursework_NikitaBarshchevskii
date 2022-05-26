@@ -11,9 +11,7 @@ import javax.persistence.*;
 public class Warehouse2 {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.AUTO
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID",
             nullable = false)
     private Long id;
